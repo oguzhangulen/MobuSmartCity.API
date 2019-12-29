@@ -10,10 +10,11 @@ namespace MobuSmartCity.API.Models
     {
         public int Id { get; set; }
         public DateTime SolutionDate { get; set; }
-        [ForeignKey("Event")]
+        //[ForeignKey("Event")]
         public int EventId { get; set; }
         public bool IsSolution { get; set; }
         public string Description { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
         public Event Event { get; set; }

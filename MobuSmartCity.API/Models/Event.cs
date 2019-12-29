@@ -11,15 +11,17 @@ namespace MobuSmartCity.API.Models
         public Event()
         {
             Comments = new List<Comments>();
+            Solution = new Solution();
+            User = new User();
+            City = new City();
         }
         public int Id { get; set; }
         public string ImageUrl { get; set; }
-        public int CommentId { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
         public string Description { get; set; }
         public DateTime EventDate { get; set; }
-        [ForeignKey("Solution")]
-        public int SolutionId { get; set; }
+        [ForeignKey("City")]
         public int CityId { get; set; }
         public long Up { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace MobuSmartCity.API.Models
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        [ForeignKey("City")]
         public int CityId { get; set; }
         public DateTime Birthday { get; set; }
         public bool IsAuthorized { get; set; }

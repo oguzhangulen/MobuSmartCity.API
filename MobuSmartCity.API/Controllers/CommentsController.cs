@@ -29,7 +29,7 @@ namespace MobuSmartCity.API.Controllers
             var comment = _appRepository.GetCommentsById(commentId);
             return Ok(comment);
         }
-        [HttpPost]
+        [HttpPost("add")]
         public IActionResult AddComment([FromBody]Comments comment)
         {
             _appRepository.Add(comment);
@@ -40,7 +40,7 @@ namespace MobuSmartCity.API.Controllers
             }
             return BadRequest("Could not add the comment");
         }
-        [HttpDelete("{id}")]
+        [HttpPost("{id}")]
         public IActionResult DeleteComment(int id)
         {
             var comment = GetCommentById(id);

@@ -48,7 +48,7 @@ namespace MobuSmartCity.API.Controllers
             }
             return BadRequest("Could not update the event");
         }
-        [HttpDelete("delete")]
+        [HttpPost("delete")]
         public IActionResult Delete([FromBody]Event @event)
         {
             _appRepository.Delete(@event);

@@ -42,52 +42,54 @@ namespace MobuSmartCity.API.Data
         public List<Comments> GetComments()
         {
             return _context.Comments
-                .Include(s=>s.User)
-                .Include(s=>s.Event)
                 .ToList();
         }
 
         public Comments GetCommentsById(int commentId)
         {
-            return _context.Comments
-                .Include(s => s.User)
-                .FirstOrDefault(a=>a.Id==commentId);
+            var temp = _context.Comments
+                .FirstOrDefault(s => s.Id == commentId);
+
+            temp.User = _context.User.Where(s => s.Id == temp.UserId).FirstOrDefault();
+            return temp;
         }
 
         public Event GetEventById(int eventId)
         {
-            return _context.Event
-                .Include(s=>s.Comments)
-                .Include(s=>s.City)
-                .Include(s=>s.Solution)
-                .Include(s=>s.User)
+            var temp = _context.Event
+                .Include(s => s.Solution)
+                .Include(s => s.Comments)
                 .FirstOrDefault(s => s.Id == eventId);
+
+            temp.User = _context.User.Where(s => s.Id == temp.UserId).FirstOrDefault();
+            temp.City = GetCityById(temp.CityId);
+            return temp;
         }
 
         public List<Event> GetEvents()
         {
-            return _context.Event
-                .Include(s => s.Comments)
-                .Include(s => s.City)
+            var temp = _context.Event
                 .Include(s => s.Solution)
-                .Include(s => s.User)
+                .Include(s => s.Comments)
                 .ToList();
+            foreach (var item in temp)
+            {
+                item.User = _context.User.Where(s => s.Id == item.UserId).FirstOrDefault();
+                item.City = GetCityById(item.CityId);
+            }
+            return temp;
 
         }
 
         public Solution GetSolutionById(int solutionId)
         {
             return _context.Solution
-                .Include(s => s.User)
-                .Include(s => s.Event)
                 .FirstOrDefault(s => s.Id == solutionId);
         }
 
         public List<Solution> GetSolutions()
         {
             return _context.Solution
-                .Include(s => s.User)
-                .Include(s => s.Event)
                 .ToList();
         }
 
