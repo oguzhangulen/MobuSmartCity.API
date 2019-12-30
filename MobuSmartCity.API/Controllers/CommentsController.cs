@@ -35,8 +35,7 @@ namespace MobuSmartCity.API.Controllers
             _appRepository.Add(comment);
             if (_appRepository.Save())
             {
-                return CreatedAtRoute("GetCommentById", new { id = comment.Id }, comment);
-
+                return Ok(comment);
             }
             return BadRequest("Could not add the comment");
         }

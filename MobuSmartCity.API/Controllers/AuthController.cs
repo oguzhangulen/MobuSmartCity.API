@@ -71,7 +71,6 @@ namespace MobuSmartCity.API.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Locality,user.CityId.ToString()),
                     new Claim(ClaimTypes.Role,user.IsAuthorized.ToString())
                 }),
                 Expires = DateTime.Now.AddDays(1),

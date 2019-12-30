@@ -30,15 +30,22 @@ namespace MobuSmartCity.API.Controllers
             var @event = _appRepository.GetEventById(id);
             return Ok(@event);
         }
+        [HttpGet("userevent")]
+        public IActionResult GetEventByUserId(int id)
+        {
+            var events = _appRepository.GetEvents().Where(s => s.UserId == id).ToList();
+            return Ok(events);
+        }
         [HttpPost("add")]
         public IActionResult Add([FromBody]Event @event)
         {
+            @event.EventDate = DateTime.Now;
             _appRepository.Add(@event);
             if (_appRepository.Save())
                 return StatusCode(201);
             return BadRequest("Could not add the Event");
         }
-        [HttpPut("update")]
+        [HttpPost("update")]
         public IActionResult Update([FromBody]Event @event)
         {
             _appRepository.Update(@event);

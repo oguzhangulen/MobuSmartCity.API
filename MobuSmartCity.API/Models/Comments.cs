@@ -8,6 +8,10 @@ namespace MobuSmartCity.API.Models
 {
     public class Comments
     {
+        public Comments()
+        {
+            CommentDate = DateTime.Now;
+        }
         public int Id { get; set; }
         public string Comment { get; set; }
         public DateTime CommentDate { get; set; }

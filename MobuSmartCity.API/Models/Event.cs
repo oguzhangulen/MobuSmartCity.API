@@ -11,10 +11,11 @@ namespace MobuSmartCity.API.Models
         public Event()
         {
             Comments = new List<Comments>();
-            Solution = new Solution();
-            User = new User();
-            City = new City();
+            //Solution = new Solution();
+            //User = new User();
+            //City = new City();
         }
+
         public int Id { get; set; }
         public string ImageUrl { get; set; }
         [ForeignKey("User")]

@@ -22,11 +22,11 @@ namespace MobuSmartCity.API.Data
 
         public void Delete<T>(T entity) where T : class
         {
-            _context.Remove(entity);
+            _context.Entry(entity).State=EntityState.Deleted;
         }
         public void Update<T>(T entity) where T : class
         {
-            _context.Update(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public List<City> GetCities()
@@ -60,9 +60,18 @@ namespace MobuSmartCity.API.Data
                 .Include(s => s.Solution)
                 .Include(s => s.Comments)
                 .FirstOrDefault(s => s.Id == eventId);
-
-            temp.User = _context.User.Where(s => s.Id == temp.UserId).FirstOrDefault();
-            temp.City = GetCityById(temp.CityId);
+            if (temp != null)
+            {
+                foreach (var comment in temp.Comments)
+                {
+                    if(comment.User==null)
+                    {
+                        comment.User = _context.User.Where(s => s.Id == comment.UserId).FirstOrDefault();
+                    }
+                }
+                temp.User = _context.User.Where(s => s.Id == temp.UserId).FirstOrDefault();
+                temp.City = GetCityById(temp.CityId);
+            }
             return temp;
         }
 
@@ -75,9 +84,9 @@ namespace MobuSmartCity.API.Data
             foreach (var item in temp)
             {
                 item.User = _context.User.Where(s => s.Id == item.UserId).FirstOrDefault();
-                item.City = GetCityById(item.CityId);
+                item.City = GetCityById(item.User.CityId);
             }
-            return temp;
+            return temp.OrderBy(s=>s.Up,"ASC");
 
         }
 

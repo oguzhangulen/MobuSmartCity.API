@@ -12,11 +12,8 @@ namespace MobuSmartCity.API.Models.DTOs
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
         public DateTime Birthday { get; set; }
-        [Required]
         public string Ad { get; set; }
-        [Required]
         public string Soyad { get; set; }
         [Required]
         public string CityName { get; set; }
